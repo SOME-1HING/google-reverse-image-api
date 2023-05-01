@@ -4,16 +4,20 @@ const puppeteer = require("puppeteer-core");
 const LOCAL_CHROME_EXECUTABLE =
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
+let browser;
+
 async function googleReverseImageSearch(imageUrl) {
   try {
     const executablePath =
       (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
 
-    const browser = await puppeteer.launch({
-      executablePath,
-      args: edgeChromium.args,
-      headless: true,
-    });
+    if (!browser) {
+      browser = await puppeteer.launch({
+        executablePath,
+        args: edgeChromium.args,
+        headless: true,
+      });
+    }
 
     const page = await browser.newPage();
 
@@ -44,7 +48,7 @@ async function googleReverseImageSearch(imageUrl) {
     })();
 
     const result = await Promise.race([timeoutPromise, searchPromise]);
-    await browser.close();
+    await page.close();
     return result;
   } catch (error) {
     console.error("googleReverseImageSearch error:", error);
