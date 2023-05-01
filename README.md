@@ -8,6 +8,7 @@ To use the API, you need to make a POST request to the `/reverse` endpoint with 
 
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"imageUrl": "https://example.com/image.jpg"}' https://your-app-url.com/reverse
+
 ```
 
 The API will respond with a JSON object containing the title and link of the top matching image from Google search, if the search was successful. Here's an example response:
@@ -17,6 +18,7 @@ The API will respond with a JSON object containing the title and link of the top
   "title": "Eiffel Tower",
   "link": "https://www.google.com/search?tbs=sbi:AMhZZivAuKHs9aJQPgTRAVqd74iKAWz3SLXaaljMHZUWu5QnFIBD1RQ1GA6B0cyS1TJwMhVrYowa4D0mCWVF5vBGRuhAyMQU0CVx_1wJb8N4eGvtnTXK7thizkT8WA5CItsHmlh06Kz1izB0WgHo2jNlbyONDJhU7sg"
 }
+
 ```
 
 If there was an error during the search process, the API will respond with a JSON object containing an error field with a description of the error. Here's an example response:
@@ -25,6 +27,7 @@ If there was an error during the search process, the API will respond with a JSO
 {
   "error": "Could not perform reverse image search."
 }
+
 ```
 
 ### Using the API in Python and JavaScript
@@ -43,6 +46,7 @@ if response.ok:
     print(response.json())
 else:
     print(response.status_code)
+
 ```
 
 To use the API in a JavaScript project, you can use the `fetch` function to make POST requests to the API endpoint. Here's an example:
@@ -78,11 +82,11 @@ To deploy this API to [Vercel](https://vercel.com/), click the button below:
 
 ## Credits
 
-This project was created by [SOME-1HING]. Feel free to use and modify this code for your own projects. If you found this project helpful, please consider giving it a ⭐️ on GitHub.
+This project was created by [SOME-1HING](https://www.github.com/SOME-1HING). Feel free to use and modify this code for your own projects. If you found this project helpful, please consider giving it a ⭐️ on GitHub.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE]() file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/SOME-1HING/google-reverse-image-api/blob/main/LICENSE) file for details.
 
 ### Terms of Use
 
