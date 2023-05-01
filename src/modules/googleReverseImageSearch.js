@@ -12,7 +12,7 @@ async function googleReverseImageSearch(imageUrl) {
     const browser = await puppeteer.launch({
       executablePath,
       args: edgeChromium.args,
-      headless: false,
+      headless: true,
     });
 
     const page = await browser.newPage();
@@ -22,20 +22,30 @@ async function googleReverseImageSearch(imageUrl) {
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     });
 
-    await page.goto(`https://lens.google.com/uploadbyurl?url=${imageUrl}`);
-    await page.waitForNavigation();
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error("Function timed out"));
+      }, 9000);
+    });
 
-    await page.waitForSelector(".WpHeLc", { timeout: 20000 });
-    const href = await page.$eval(".WpHeLc", (a) => a.getAttribute("href"));
+    const searchPromise = (async () => {
+      await page.goto(`https://lens.google.com/uploadbyurl?url=${imageUrl}`);
 
-    await page.waitForSelector(".DeMn2d", { timeout: 20000 });
-    const divText = await page.$eval(
-      ".DeMn2d",
-      (element) => element.textContent
-    );
+      await page.waitForSelector(".WpHeLc", { timeout: 10000 });
+      const href = await page.$eval(".WpHeLc", (a) => a.getAttribute("href"));
 
+      await page.waitForSelector(".DeMn2d", { timeout: 10000 });
+      const divText = await page.$eval(
+        ".DeMn2d",
+        (element) => element.textContent
+      );
+
+      return { title: divText, link: href };
+    })();
+
+    const result = await Promise.race([timeoutPromise, searchPromise]);
     await browser.close();
-    return { title: divText, link: href };
+    return result;
   } catch (error) {
     console.error("googleReverseImageSearch error:", error);
     throw new Error("Failed to search for image");
