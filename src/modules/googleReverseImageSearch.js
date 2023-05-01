@@ -1,8 +1,20 @@
-const puppeteer = require("puppeteer");
+const edgeChromium = require("chrome-aws-lambda");
+const puppeteer = require("puppeteer-core");
+
+const LOCAL_CHROME_EXECUTABLE =
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 async function googleReverseImageSearch(imageUrl) {
   try {
-    const browser = await puppeteer.launch({ headless: "new" });
+    const executablePath =
+      (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
+
+    const browser = await puppeteer.launch({
+      executablePath,
+      args: edgeChromium.args,
+      headless: false,
+    });
+
     const page = await browser.newPage();
 
     await page.setExtraHTTPHeaders({
