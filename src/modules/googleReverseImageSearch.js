@@ -14,7 +14,10 @@ async function googleReverseImageSearch(imageUrl) {
     if (!browser) {
       browser = await puppeteer.launch({
         executablePath,
-        args: edgeChromium.args,
+        args: [
+          ...edgeChromium.args,
+          "--disable-features=site-per-process,TranslateUI,BlinkGenPropertyTrees",
+        ],
         headless: true,
       });
     }
@@ -29,7 +32,7 @@ async function googleReverseImageSearch(imageUrl) {
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(() => {
         reject(new Error("Function timed out"));
-      }, 9000);
+      }, 9900);
     });
 
     const searchPromise = (async () => {
