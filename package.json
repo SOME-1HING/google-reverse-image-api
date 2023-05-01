@@ -4,8 +4,10 @@
   "description": "A simple Express.js and Puppeteer app that includes a reverse API to search for images using Google Reverse Image Search.",
   "main": "app.js",
   "scripts": {
-    "start": "vercel dev || node app.js",
-    "dev": "nodemon app.js"
+    "start": "node build/app.js",
+    "dev": "nodemon src/app.js",
+    "build": "npm run clean && tsc && npm run copy-assets",
+    "clean": "rimraf build"
   },
   "author": "SOME-1HING",
   "license": "MIT",
