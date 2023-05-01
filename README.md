@@ -7,7 +7,7 @@ This is a simple API built using Node.js and Express.js that allows you to perfo
 To use the API, you need to make a POST request to the `/reverse` endpoint with a JSON payload containing the image URL. Here's an example using `curl`:
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"imageUrl": "https://example.com/image.jpg"}' https://your-app-url.com/reverse
+curl -X POST -H "Content-Type: application/json" -d '{"imageUrl": "https://fastly.picsum.photos/id/513/200/300.jpg?hmac=KcBD-M89_o9rkxWW6PS2yEfAMCfd3TH9McppOsf3GZ0"}' https://google-reverse-image-api.vercel.app/reverse
 
 ```
 
@@ -38,7 +38,7 @@ To use this API in a Python project, you can use the `requests` library to make 
 import requests
 
 url = "https://your-app-url.com/reverse"
-data = {"imageUrl": "https://example.com/image.jpg"}
+data = {"imageUrl": "https://fastly.picsum.photos/id/513/200/300.jpg?hmac=KcBD-M89_o9rkxWW6PS2yEfAMCfd3TH9McppOsf3GZ0"}
 
 response = requests.post(url, json=data)
 
@@ -53,7 +53,7 @@ To use the API in a JavaScript project, you can use the `fetch` function to make
 
 ```javascript
 const url = "https://your-app-url.com/reverse";
-const data = { imageUrl: "https://example.com/image.jpg" };
+const data = { imageUrl: "https://fastly.picsum.photos/id/513/200/300.jpg?hmac=KcBD-M89_o9rkxWW6PS2yEfAMCfd3TH9McppOsf3GZ0" };
 
 fetch(url, {
   method: "POST",
