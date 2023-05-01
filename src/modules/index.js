@@ -1,4 +1,4 @@
-const googleReverseImageSearch = require("./googleReverseImageSearch");
+const { googleReverseImageSearch } = require("./googleReverseImageSearch");
 
 module.exports = {
   googleReverseImageSearch,
