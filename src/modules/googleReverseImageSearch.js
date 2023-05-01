@@ -14,10 +14,7 @@ async function googleReverseImageSearch(imageUrl) {
     if (!browser) {
       browser = await puppeteer.launch({
         executablePath,
-        args: [
-          ...edgeChromium.args,
-          "--disable-features=site-per-process,TranslateUI,BlinkGenPropertyTrees",
-        ],
+        args: edgeChromium.args,
         headless: true,
       });
     }
@@ -38,10 +35,10 @@ async function googleReverseImageSearch(imageUrl) {
     const searchPromise = (async () => {
       await page.goto(`https://lens.google.com/uploadbyurl?url=${imageUrl}`);
 
-      await page.waitForSelector(".WpHeLc", { timeout: 10000 });
+      await page.waitForNavigation();
+
       const href = await page.$eval(".WpHeLc", (a) => a.getAttribute("href"));
 
-      await page.waitForSelector(".DeMn2d", { timeout: 10000 });
       const divText = await page.$eval(
         ".DeMn2d",
         (element) => element.textContent
