@@ -35,7 +35,7 @@ async function googleReverseImageSearch(imageUrl) {
     const searchPromise = (async () => {
       await page.goto(`https://lens.google.com/uploadbyurl?url=${imageUrl}`);
 
-      await page.waitForNavigation();
+      await page.waitForSelector(".WpHeLc", { timeout: 9000 });
 
       const href = await page.$eval(".WpHeLc", (a) => a.getAttribute("href"));
 
