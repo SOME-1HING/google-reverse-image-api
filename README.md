@@ -1,6 +1,8 @@
 # Google Reverse Image Search API
 
-This is a simple API built using Node.js and Express.js that allows you to perform Google Reverse Image Search by providing an image URL. The API uses Puppeteer to automate a headless Chrome browser and perform the search on Google's image search engine.
+This is a simple API built using Node.js and Express.js that allows you to perform Google Reverse Image Search by providing an image URL. The API uses Cheerio to scrap Google's image search engine's html to get result text and similar images url.
+
+API is currently hosted on Vercel. You can access it using [this](https://google-reverse-image-api.vercel.app) link.
 
 ## Usage
 
@@ -37,7 +39,7 @@ To use this API in a Python project, you can use the `requests` library to make 
 ```python
 import requests
 
-url = "https://your-app-url.com/reverse"
+url = "https://google-reverse-image-api.vercel.app/reverse"
 data = {"imageUrl": "https://fastly.picsum.photos/id/513/200/300.jpg?hmac=KcBD-M89_o9rkxWW6PS2yEfAMCfd3TH9McppOsf3GZ0"}
 
 response = requests.post(url, json=data)
@@ -52,7 +54,7 @@ else:
 To use the API in a JavaScript project, you can use the `fetch` function to make POST requests to the API endpoint. Here's an example:
 
 ```javascript
-const url = "https://your-app-url.com/reverse";
+const url = "https://google-reverse-image-api.vercel.app/reverse";
 const data = { imageUrl: "https://fastly.picsum.photos/id/513/200/300.jpg?hmac=KcBD-M89_o9rkxWW6PS2yEfAMCfd3TH9McppOsf3GZ0" };
 
 fetch(url, {
@@ -71,6 +73,16 @@ fetch(url, {
   .catch((error) => console.error(error));
 
 ```
+
+### Telegram Integration
+
+#### Python
+
+This api can be easily used in your python telegram bot. The module example code is present [here](https://github.com/SOME-1HING/google-reverse-image-api/blob/main/examples/telegram_reverse.py). You can fork [ShikimoriBot](https://github.com/SOME-1HING/ShikimoriBot) repository if you are new to telegram bot development.
+
+#### JavaScript
+
+I will provide the code soon.
 
 ## Deployment
 
