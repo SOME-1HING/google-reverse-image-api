@@ -54,7 +54,7 @@ async def get_file_id_from_message(message: Message):
     return file_id
 
 
-@pbot.on_message(filters.command(["pp", "grs", "reverse"])) 
+@pbot.on_message(filters.command(["pp", "grs", "reverse"]))
 async def reverse(app: client, msg: Message):
     text = await msg.reply("```Parsing Media...```", parse_mode=ParseMode.MARKDOWN)
     file_id = await get_file_id_from_message(msg)
