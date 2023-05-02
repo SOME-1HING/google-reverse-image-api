@@ -17,8 +17,12 @@ The API will respond with a JSON object containing the title and link of the top
 
 ```json
 {
-  "title": "Eiffel Tower",
-  "link": "https://www.google.com/search?tbs=sbi:AMhZZivAuKHs9aJQPgTRAVqd74iKAWz3SLXaaljMHZUWu5QnFIBD1RQ1GA6B0cyS1TJwMhVrYowa4D0mCWVF5vBGRuhAyMQU0CVx_1wJb8N4eGvtnTXK7thizkT8WA5CItsHmlh06Kz1izB0WgHo2jNlbyONDJhU7sg"
+  "success" : true,
+  "message" : "Successfully Got the Result",
+  "data" : {
+    "similarUrl" : "https://www.google.com/search?tbm=isch&q=Elderly%20person",
+    "resultText" : "Results forÂElderly person"
+  }
 }
 
 ```
@@ -27,7 +31,9 @@ If there was an error during the search process, the API will respond with a JSO
 
 ```json
 {
-  "error": "Could not perform reverse image search."
+  "success" : false,
+  "message" : "Failed to find text output",
+  "data" : null
 }
 
 ```
