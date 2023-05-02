@@ -1,5 +1,5 @@
-const { googleReverseImageSearch } = require("./googleReverseImageSearch");
+const { reverse } = require("./googleReverseImageSearch");
 
 module.exports = {
-  googleReverseImageSearch,
+  reverse,
 };

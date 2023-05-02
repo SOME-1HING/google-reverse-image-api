@@ -1,61 +1,59 @@
-const edgeChromium = require("chrome-aws-lambda");
-const puppeteer = require("puppeteer-core");
+const axios = require("axios");
+const cheerio = require("cheerio");
+const {
+  SuccessResponseObject,
+  ErrorResponseObject,
+} = require("../common/http");
 
-const LOCAL_CHROME_EXECUTABLE =
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-
-let browser;
-
-async function googleReverseImageSearch(imageUrl) {
+async function reverse(imageUrl) {
   try {
-    const executablePath =
-      (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
+    /*   const imageExtension = imageUrl.split(".").pop().toLowerCase();
+    if (!["jpg", "jpeg", "png", "gif", "bmp"].includes(imageExtension)) {
+      return new ErrorResponseObject("Invalid image URL");
+    } */
 
-    if (!browser) {
-      browser = await puppeteer.launch({
-        executablePath,
-        args: edgeChromium.args,
-        headless: true,
-      });
+    const headers = {
+      "User-Agent":
+        "Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36",
+    };
+    const url = `https://images.google.com/searchbyimage?safe=off&sbisrc=tg&image_url=${imageUrl}`;
+    const response = await axios.get(url, { headers });
+
+    const $ = cheerio.load(response.data);
+    const result = { similarUrl: "", resultText: "" };
+
+    const similarInput = $("input.gLFyf").first();
+    if (similarInput.length) {
+      const similarImage = similarInput.attr("value");
+      const similarUrl = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(
+        similarImage
+      )}`;
+      result.similarUrl = similarUrl;
+    } else {
+      return new ErrorResponseObject("Failed to find similar images");
     }
 
-    const page = await browser.newPage();
+    const outputDiv = $("div.r5a77d").first();
+    if (outputDiv.length) {
+      const output = outputDiv.text();
+      const decodedText = unescape(encodeURIComponent(output));
+      result.resultText = decodedText;
+    } else {
+      return new ErrorResponseObject("Failed to find text output");
+    }
 
-    await page.setExtraHTTPHeaders({
-      "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
-    });
-
-    const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => {
-        reject(new Error("Function timed out"));
-      }, 9900);
-    });
-
-    const searchPromise = (async () => {
-      await page.goto(`https://lens.google.com/uploadbyurl?url=${imageUrl}`);
-
-      await page.waitForSelector(".WpHeLc", { timeout: 9000 });
-
-      const href = await page.$eval(".WpHeLc", (a) => a.getAttribute("href"));
-
-      const divText = await page.$eval(
-        ".DeMn2d",
-        (element) => element.textContent
-      );
-
-      return { title: divText, link: href };
-    })();
-
-    const result = await Promise.race([timeoutPromise, searchPromise]);
-    await page.close();
-    return result;
+    return new SuccessResponseObject("Successfully Got the Result", result);
   } catch (error) {
-    console.error("googleReverseImageSearch error:", error);
-    throw new Error("Failed to search for image");
+    return new ErrorResponseObject(`Failed to reverse image: ${error.message}`);
   }
 }
 
 module.exports = {
-  googleReverseImageSearch,
+  reverse,
 };
+
+// For Testing
+/* reverse("https://graph.org/file/1668e5e51e612341b945e.jpg")
+  .then((result) => console.log(result["success"]))
+  .catch((error) => console.error(error.message));
+ */
