@@ -1,8 +1,21 @@
 
 #MIT License
 #Copyright (c) 2023 SOME1HING
-#Made only for Python Telegram Bot V13.15
 
+
+"""
+MIT License
+
+Copyright (c) 2023 SOME-1HING
+
+This file uses the "google-reverse-image-api" API made by "SOME-1HING"
+(https://github.com/SOME-1HING/google-reverse-image-api) under the terms of the MIT license.
+
+This example file is written by "yash-sharma-1807"
+
+Made only for Python Telegram Bot V13.15
+
+"""
 
 import requests
 from Yourbot import dispatcher , Bot_token as Token
