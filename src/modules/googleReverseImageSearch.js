@@ -36,7 +36,11 @@ async function reverse(imageUrl) {
     const outputDiv = $("div.r5a77d").first();
     if (outputDiv.length) {
       const output = outputDiv.text();
-      const decodedText = unescape(encodeURIComponent(output));
+      let decodedText = unescape(encodeURIComponent(output));
+
+      if (decodedText.includes("Â")) {
+        decodedText = decodedText.replace(/Â/g, " ");
+      }
       result.resultText = decodedText;
     } else {
       return new ErrorResponseObject("Failed to find text output");
