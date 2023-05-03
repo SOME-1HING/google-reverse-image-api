@@ -1,8 +1,3 @@
-
-#MIT License
-#Copyright (c) 2023 SOME1HING
-
-
 """
 MIT License
 
