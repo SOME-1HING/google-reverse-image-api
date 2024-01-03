@@ -9,7 +9,7 @@ API is currently hosted on Vercel. You can access it using [this](https://google
 To use the API, you need to make a POST request to the `/reverse` endpoint with a JSON payload containing the image URL. Here's an example using `curl`:
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"imageUrl": "https://fastly.picsum.photos/id/513/200/300.jpg?hmac=KcBD-M89_o9rkxWW6PS2yEfAMCfd3TH9McppOsf3GZ0"}' https://google-reverse-image-api.vercel.app/reverse
+Invoke-RestMethod -Uri "https://google-reverse-image-api.vercel.app/reverse" -Method Post -Headers @{"Content-Type"="application/json"} -Body '{"imageUrl": "https://fastly.picsum.photos/id/513/200/300.jpg?hmac=KcBD-M89_o9rkxWW6PS2yEfAMCfd3TH9McppOsf3GZ0"}'
 
 ```
 
