@@ -23,14 +23,13 @@ r.post("/reverse", async (req, res) => {
     const { imageUrl } = req.body;
 
     const result = await reverse(imageUrl);
-
     if (result["success"]) {
       res.status(200).json(result);
     } else {
-      res.status(401).json(result);
+      res.status(404).json(result);
     }
   } catch (error) {
     console.error("/reverse error:", error);
-    res.status(402).json(new ErrorResponseObject("Failed to reverse image"));
+    res.status(500).json(new ErrorResponseObject("Failed to reverse image"));
   }
 });

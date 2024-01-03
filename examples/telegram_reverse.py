@@ -84,11 +84,11 @@ async def reverse(app: client, msg: Message):
                 [[InlineKeyboardButton("Link", url=result["similar"])]]
             ),
         )
-    elif response.status_code == 401:
+    elif response.status_code == 404:
         return await text.edit(
             "```Couldn't find anything```", parse_mode=ParseMode.MARKDOWN
         )
-    elif response.status_code == 402:
+    elif response.status_code == 500:
         return await text.edit(
             "```Failed to reverse image```", parse_mode=ParseMode.MARKDOWN
         )

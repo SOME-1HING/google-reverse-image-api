@@ -22,7 +22,7 @@ async function reverse(imageUrl) {
     const $ = cheerio.load(response.data);
     const result = { similarUrl: "", resultText: "" };
 
-    const similarInput = $("input.gLFyf").first();
+    const similarInput = $(".gLFyf").first();
     if (similarInput.length) {
       const similarImage = similarInput.attr("value");
       const similarUrl = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(
