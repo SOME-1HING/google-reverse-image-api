@@ -7,11 +7,6 @@ const {
 
 async function reverse(imageUrl) {
   try {
-    /*   const imageExtension = imageUrl.split(".").pop().toLowerCase();
-    if (!["jpg", "jpeg", "png", "gif", "bmp"].includes(imageExtension)) {
-      return new ErrorResponseObject("Invalid image URL");
-    } */
-
     const headers = {
       "User-Agent":
         "Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36",
