@@ -1,6 +1,6 @@
 {
   "name": "google-reverse-image-api",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "A simple Express.js and Puppeteer app that includes a reverse API to search for images using Google Reverse Image Search.",
   "keywords": [
     "api",
@@ -28,6 +28,6 @@
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.1.7"
   }
 }
